@@ -16,7 +16,7 @@ create table Cars (
     PricePerDay int,
     primary key (CarNumber)
 );
-
+use lab1;
 create table Bookings (
     CustomerNumber int,
     CarNumber int,
@@ -90,5 +90,57 @@ insert into Bookings Values (7, 12, '2018-03-18', '2018-03-20');
 insert into Bookings Values (6, 8, '2018-03-18', '2018-04-02');
 
 
+-- Show all customers with all their information.
+select * from Customers;
 
+-- Show all customers, but only with their name and birthdate.
+select birthdate from Customers;
+
+-- Show all cars that cost more than 1000:- per day.
+select * from Cars 
+where PricePerDay > 1000;
+
+-- Show all Volvo cars, only with their brand name and their model.
+select brand, model 
+from Cars
+where brand = 'Volvo';
+
+-- Show all customers, only with their names, in a sorted fashion based on their name. Both in ascending and descending order.
+select name 
+from Customers
+order by name ASC;
+
+select name
+from Customers
+order by name Desc;
+
+-- Show all customers, only with their names, that were born in 1990 or later in a sorted fashion based on their birthdate.
+select name, BirthDate
+from Customers
+where BirthDate >= '1990-01-01';
+order by BirthDate ASC;
+
+-- Show all cars that are red and cost less than 1500.
+select color, PricePerDay
+from Cars
+where color = 'red'
+    and  PricePerDay < '1500';
+
+-- Show all customers, only with their names, that were born between 1970-1990.
+select name, birthdate
+from Customers
+where year(BirthDate) between 1970 and 1990;
+
+-- Show all bookings that are longer than 6 days.
+select *, datediff(EndDate, Startdate) as duration
+from Bookings
+where datediff(EndDate, Startdate) > 6;
+
+
+use lab1;
+-- Show all bookings that overlap with the interval 2018-02-01 - 2018-02-25.
+select *
+from Bookings
+where Startdate <= '2018-02-25'
+    and EndDate >= '2018-02-01';
 
