@@ -11,7 +11,7 @@ CREATE TABLE kurser (
   kurs_kod VARCHAR(10) PRIMARY KEY,
   kurs_namn VARCHAR(100),
   lärar_id INT,
-  FOREIGN KEY (lärar_id) REFERENCES lärare(lärar_id)  -- Lärare kopplas till KURS!
+  FOREIGN KEY (lärar_id) REFERENCES lärare(lärar_id) 
 );
 
 CREATE TABLE studenter (
@@ -20,7 +20,7 @@ CREATE TABLE studenter (
   student_mail VARCHAR(100)
 );
 
-CREATE TABLE student_kurser (  -- Endast student + kurs + betyg!
+CREATE TABLE student_kurser (  
   student_id INT,
   kurs_kod VARCHAR(10),
   betyg CHAR(1),
@@ -29,7 +29,7 @@ CREATE TABLE student_kurser (  -- Endast student + kurs + betyg!
   FOREIGN KEY (kurs_kod) REFERENCES kurser(kurs_kod)
 );
 
--- Lägg till data
+
 INSERT INTO lärare (lärare_namn, lärare_telefonnummer) 
 VALUES ('Anna Andersson', '070111');
 

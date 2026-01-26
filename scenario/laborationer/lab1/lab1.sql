@@ -89,6 +89,7 @@ insert into Bookings Values (9, 5, '2018-03-14', '2018-03-30');
 insert into Bookings Values (7, 12, '2018-03-18', '2018-03-20');
 insert into Bookings Values (6, 8, '2018-03-18', '2018-04-02');
 
+--Selection, Projection, and Restriction
 
 -- Show all customers with all their information.
 select * from Customers;
@@ -137,10 +138,124 @@ from Bookings
 where datediff(EndDate, Startdate) > 6;
 
 
-use lab1;
 -- Show all bookings that overlap with the interval 2018-02-01 - 2018-02-25.
 select *
 from Bookings
 where Startdate <= '2018-02-25'
     and EndDate >= '2018-02-01';
+
+-- Show all customers whose first name starts with an O.
+select *
+from Customers
+where name Like 'O%';
+
+
+-- Aggregated Functions
+
+-- Show the average price per day for the cars.
+select AVG(PricePerDay) as AvrageRentalPrice
+from Cars;
+
+-- Show the total price per day for the cars.
+select sum(PricePerDay) as CombinedTotalPrice
+from Cars;
+
+-- Show the average price for red cars.
+select AVG(PricePerDay) as AvrageRentalPrice
+from Cars
+where color = 'red';
+
+-- Show the total price for all cars grouped by the different colors.
+select color, sum(PricePerDay) as TotalPriceGroped
+from Cars
+group by color;
+
+
+-- Show how many cars are of red color.
+select Count(*) NumberOfRedCars
+from Cars
+where color = 'red';
+
+-- Show how many cars exists of each color.
+select color, Count(*) NumberOfEachColor
+from Cars
+group by color
+order by NumberOfEachColor Desc;
+
+
+-- Show the car that is the most expensive to rent. (Do not hard code this with the most expensive price, instead use ORDER and LIMIT.)
+Select * 
+from Cars
+order by PricePerDay desc
+limit 1;
+
+
+-- JOINS
+
+-- Show the Cartesian product between Cars and Bookings.
+
+select * 
+from Cars
+cross join Bookings;
+
+-- Show the Cartesian product between Customers and Bookings.
+select *
+from Customers
+cross join Bookings;
+
+-- Show the results of converting the previous two joins to inner joins.
+select Customers.name AS Customer, Cars.brand, Cars.model, Bookings.Startdate
+from Bookings
+inner join Customers on Bookings.CustomerNumber = Customers.CustomerNumber
+inner join Cars on Bookings.CarNumber = Cars.CarNumber
+
+use lab1;
+-- Show the names of all the customers that has made a booking.
+select Customers.name
+from Customers
+inner join Bookings on Customers.CustomerNumber = Bookings.CustomerNumber
+
+
+use lab1;
+-- Same as the previous but without all the duplicates.
+select distinct Customers.name
+from Customers
+inner  join Bookings on Customers.CustomerNumber = Bookings.CustomerNumber
+
+
+use lab1;
+-- Show all the Volkswagen cars that has been booked at least once.
+select distinct Cars.brand, Cars.model, Cars.color
+from Cars
+inner join Bookings on Cars.CarNumber = Bookings.CarNumber
+where Cars.brand = 'volkswagen';
+
+use lab1;
+-- Show all the customers that has rented a Volkswagen.
+select distinct Customers.name
+from Customers
+inner join Bookings on Customers.CustomerNumber = Bookings.CustomerNumber
+inner join Cars on Cars.CarNumber = Bookings.CarNumber
+where Cars.brand = 'volkswagen';
+
+use lab1;
+-- Show all cars that has been booked at least once.
+select distinct Cars.brand, Cars.model
+from Cars
+inner join Bookings on Cars.CarNumber = Bookings.CarNumber
+
+use lab1;
+-- Show all cars that has never been booked.
+select distinct Cars.brand, Cars.model, Cars.model
+from Cars
+left join Bookings on Cars.CarNumber = Bookings.CarNumber
+where Bookings.CarNumber is null;
+
+use lab1;
+-- Show all the black cars that has been booked at least once.
+select distinct Cars.brand, Cars.model
+from Cars
+inner join Bookings on Cars.CarNumber = Bookings.CarNumber
+where Cars.color = 'black';
+
 

@@ -25,7 +25,8 @@ create table lånad_bok (
     författare_id int,
     personnummer int (12)
     primary key (författare_id, personnummer)
-    foreign key (författare_id) 
-
+    foreign key (författare_id) REFERENCES författare(författare_id)
+    FOREIGN KEY (personnummer) REFERENCES låntagare(personnummer)
+    
 )
 
