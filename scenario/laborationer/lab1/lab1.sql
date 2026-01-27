@@ -288,3 +288,30 @@ from Cars
 where color = 'black'
     and CarNumber in (select CarNumber from Bookings);
 
+
+
+-- IN
+
+use lab1;
+
+-- Show all cars that has the cost 700, 800, and 850.  
+select brand, model, color
+from Cars
+where PricePerDay IN (700, 800, 900);
+
+
+use lab1;
+-- Show all the customers that born in 1990, 1995, and 2000. (Hint: YEAR function).  
+
+select name, BirthDate
+from Customers
+where year(BirthDate) IN (1990, 1995, 2000);
+
+
+use lab1;
+-- Show all the bookings that start on 2018-01-03, 2018-02-22, or 2018-03-18.  
+select CustomerNumber, Startdate
+from Bookings
+where Startdate In ('2018-01-03', '2018-02-22', '2018-03-18');
+
+
