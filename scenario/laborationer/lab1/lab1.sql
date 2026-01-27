@@ -151,7 +151,7 @@ where name Like 'O%';
 
 
 -- Aggregated Functions
-
+use lab1;
 -- Show the average price per day for the cars.
 select AVG(PricePerDay) as AvrageRentalPrice
 from Cars;
@@ -258,4 +258,33 @@ from Cars
 inner join Bookings on Cars.CarNumber = Bookings.CarNumber
 where Cars.color = 'black';
 
+--  Nested Queries
+
+use lab1;
+-- Show all the cars that cost more than the average.
+select brand, model, PricePerDay
+from Cars
+where PricePerDay > (select AVG(PricePerDay) From Cars);
+
+use lab1;
+-- Show the car with the lowest cost with black color.
+select distinct brand, model, PricePerDay, color
+from Cars
+where color = 'black'
+    and PricePerDay = (select min(PricePerDay) from Cars where color = 'black'); 
+
+
+use lab1;
+-- Show the car which has the lowest cost.
+select distinct brand, model, color, PricePerDay
+from Cars
+where PricePerDay = (select min(PricePerDay) from Cars)
+
+
+use lab1;
+-- Show all the black cars that has been booked at least once by using a sub query.
+select brand, model
+from Cars
+where color = 'black'
+    and CarNumber in (select CarNumber from Bookings);
 
