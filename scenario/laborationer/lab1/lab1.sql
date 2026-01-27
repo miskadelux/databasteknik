@@ -315,3 +315,19 @@ from Bookings
 where Startdate In ('2018-01-03', '2018-02-22', '2018-03-18');
 
 
+-- Between
+
+use lab1;
+-- Show all cars whose price is in the range 600 - 1000.
+select brand, model, color, PricePerDay
+from Cars
+where PricePerDay Between 600 and 1000;
+
+
+use lab1;
+-- Show all the customers who are born between 1960 - 1980.  
+select distinct name
+from Customers
+where year(BirthDate) between 1960 and 1980;
+
+
