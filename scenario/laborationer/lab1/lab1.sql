@@ -402,24 +402,76 @@ use lab1;
 update Cars
 set PricePerDayInEURO = PricePerDayInEURO / 10;
 
-
-
-
 use lab1;
 -- Can we construct a PK in the Bookings table without adding a new column? If yes, do that. If not, add another column that allows you to uniquely identify each booking.  
-
--- There are two ways to create the solution, it wokrs the both ways, one way is
--- to set customerNumber and Startdate as primary key in this way a customer can't
--- book the same cars twice
 
 alter table Bookings
 primary key (CarNumber, CustomerNumber, Startdate)
 
--- and ther is even a better way to add a new column 
-use lab1;
-alter table Bookings
-add column BookingNumber int not null AUTO_INCREMENT PRIMARY key first;
+
+
+
+-- VIEW
 
 use lab1;
-alter table Bookings
-drop primary key;
+-- Create a view, that shows all the information about black cars.  
+create view black_cars AS
+select brand, model
+from Cars
+where color = 'black';
+
+use lab1;
+select * from black_cars
+
+
+use lab1;
+-- Create a view that shows all information about black cars and the addition of the weekly price as a column.  
+create view black_cars_weekly AS
+select *, (PricePerDayInEURO * 7) AS weekly_price
+From Cars
+where color = 'black'
+
+
+use lab1;
+select * from black_cars_weekly;
+
+
+
+use lab1;
+-- Try and insert a car into both views created. What happens? Why? What s the difference between the views?  
+insert into black_cars (brand, model)
+Values ('Tesla', 'model 3');
+
+-- it does not work, beacuase the view does not know what color is or priceperday is
+
+
+use lab1;
+insert into black_cars_weekly (brand, model)
+Values ('Tesla', 'model');
+
+-- this doe not work either becuas the math in SQL is classified as non updateable 
+
+
+
+
+use lab1;
+-- Create a view that shows all the cars available for booking at this current time.  
+create view available_cars AS
+select Cars.*
+from Cars
+left join Bookings ON Bookings.CarNumber = Cars.CarNumber
+where (CURDATE() Not between Bookings.Startdate and Bookings.EndDate);
+
+use lab1;
+select * from available_cars;
+
+
+use lab1;
+-- Alter the previous view, with the condition that the cars have to be available for at least 3 days of renting.  
+create or replace view available_cars_3days AS
+select Cars.*
+From Cars
+left join Bookings On Bookings.CarNumber = Cars.CarNumber
+where (Bookings.CarNumber is null)
+    or (Curdate() Not BETWEEN Bookings.Startdate and Bookings.EndDate)
+        and datediff(Bookings.Startdate, CURDATE(()) >= 3)
