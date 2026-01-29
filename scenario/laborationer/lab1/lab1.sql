@@ -331,6 +331,41 @@ from Customers
 where year(BirthDate) between 1960 and 1980;
 
 
+-- MIX OF EVERYTHING
+
+use lab1;
+-- Show all the cars that are eligible for booking between 2018-01-10 - 2018-01-20.  
+select *
+From Cars
+where CarNumber NOT IN (
+    select  CarNumber
+    from Bookings
+    where Startdate <= '2018-01-10' and EndDate >= '2018-01-20'
+);
+
+use lab1;
+-- Show the car that has been booked the most.  
+SELECT Cars.*, Tally.Count
+FROM Cars
+JOIN (
+    SELECT CarNumber, COUNT(*) AS Count
+    FROM Bookings
+    GROUP BY CarNumber
+    ORDER BY Count DESC
+    LIMIT 1
+) AS Tally ON Cars.CarNumber = Tally.CarNumber;
+
+
+use lab1;
+-- Show all the customers who are born in January or February and has booked at least one car.  
+select distinct Customers.*
+from Customers
+inner join Bookings ON Customers.CustomerNumber = Bookings.CustomerNumber
+where month(BirthDate) in (1,2);
+
+
+
+
 -- delete, update, alter, insert
 
 use lab1;
