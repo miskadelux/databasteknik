@@ -128,7 +128,7 @@ where color = 'red'
     and  PricePerDay < '1500';
 
 -- Show all customers, only with their names, that were born between 1970-1990.
-select name, birthdate
+select name
 from Customers
 where year(BirthDate) between 1970 and 1990;
 
