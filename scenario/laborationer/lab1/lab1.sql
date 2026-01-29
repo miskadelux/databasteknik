@@ -473,5 +473,30 @@ select Cars.*
 From Cars
 left join Bookings On Bookings.CarNumber = Cars.CarNumber
 where (Bookings.CarNumber is null)
-    or (Curdate() Not BETWEEN Bookings.Startdate and Bookings.EndDate)
-        and datediff(Bookings.Startdate, CURDATE(()) >= 3)
+    or (Curdate() Not BETWEEN Bookings.Startdate and Bookings.EndDate
+        and datediff(Bookings.Startdate, CURDATE()) >= 3);
+
+
+use lab1;
+select distinct * from available_cars_3days;
+
+-- DROP
+use lab1;
+drop table Cars
+
+-- I can't drop the table because ther is a foreign key constrain on the table bookings
+-- I have to delete the child table first in this case Bookings table and then it works
+
+use lab1;
+drop table Cars;
+
+
+use lab1;
+-- Delete all the rows of table Customers.  
+delete from Customers;
+
+
+-- What s the difference between DROP TABLE and DELETE?  
+
+-- the drop deletes the whole table, 
+-- while delete only clears the content in the table, the table still exist but it is empty

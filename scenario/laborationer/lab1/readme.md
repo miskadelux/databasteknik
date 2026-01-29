@@ -192,8 +192,9 @@ Show all the bookings that start on 2018-01-03, 2018-02-22, or 2018-03-18.
 ### BETWEEN
 Show all cars whose price is in the range 600 - 1000.  
 Show all the customers who are born between 1960 - 1980.  
-Show all bookings that last between 2 - 4 days.  
-A mix of everything  
+
+
+### A mix of everything  
 Show all the cars that are eligible for booking between 2018-01-10 - 2018-01-20.  
 Show the car that has been booked the most.  
 Show all the customers who are born in January or February and has booked at least one car.  
