@@ -331,3 +331,60 @@ from Customers
 where year(BirthDate) between 1960 and 1980;
 
 
+-- delete, update, alter, insert
+
+use lab1;
+
+-- There is a customer born in 1800 according to the records, this is obviously not possible so delete that customer.  
+delete from Customers
+where year(BirthDate) = 1800;
+
+
+use lab1;
+-- The Tesla X car that is available for renting needs to have its price increased by 200:-.  
+
+update Cars
+set PricePerDay = PricePerDay + 200
+where brand = 'Tesla'
+    and model = 'X';
+
+
+use lab1;
+-- All the Peugeot cars also needs to be increased in price, in this case by 20%.  
+update Cars
+set PricePerDay = PricePerDay * 1.2
+where brand = 'Peugeot'
+
+
+
+use lab1;
+
+-- Now we fast forward into the future and Sweden has changed its currency to Euros (€). Fix both the data itself (assume the conversion rate is 10SEK == 1 EUR) and the table so it can handle the new prices.  
+alter table Cars
+rename column PricePerDay to PricePerDayInEURO
+
+use lab1;
+update Cars
+set PricePerDayInEURO = PricePerDayInEURO / 10;
+
+
+
+
+use lab1;
+-- Can we construct a PK in the Bookings table without adding a new column? If yes, do that. If not, add another column that allows you to uniquely identify each booking.  
+
+-- There are two ways to create the solution, it wokrs the both ways, one way is
+-- to set customerNumber and Startdate as primary key in this way a customer can't
+-- book the same cars twice
+
+alter table Bookings
+primary key (CarNumber, CustomerNumber, Startdate)
+
+-- and ther is even a better way to add a new column 
+use lab1;
+alter table Bookings
+add column BookingNumber int not null AUTO_INCREMENT PRIMARY key first;
+
+use lab1;
+alter table Bookings
+drop primary key;
