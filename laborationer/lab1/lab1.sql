@@ -8,6 +8,7 @@ create table Customers (
     primary key (CustomerNumber)
 );
 
+use lab1;
 create table Cars (
     CarNumber int AUTO_INCREMENT,
     brand varchar (100),
@@ -16,6 +17,7 @@ create table Cars (
     PricePerDay int,
     primary key (CarNumber)
 );
+
 use lab1;
 create table Bookings (
     CustomerNumber int,
@@ -43,6 +45,7 @@ insert into Cars (brand, model, color, PricePerDay) VALUES ( 'Volkswagen', 'Polo
 insert into Cars (brand, model, color, PricePerDay) VALUES ('BMW', 'M3', 'Black', 1599);
 insert into Cars (brand, model, color, PricePerDay) VALUES ('Volkswagen', 'Golf', 'Red', 1500);
 
+use lab1;
 insert into Customers (name, BirthDate) Values ('Alice Andersson', '1990-05-05');
 insert into Customers (name, BirthDate) Values ('Oscar Johansson', '1975-08-10');
 insert into Customers (name, BirthDate) Values ('Nora Hansen', '1981-10-27');
@@ -66,6 +69,7 @@ insert into Customers (name, BirthDate) Values ('Noah Johnson', '1800-12-16');
 insert into Customers (name, BirthDate) Values ('Alice Silva', '1988-12-04');
 insert into Customers (name, BirthDate) Values ('Miguel Santos', '1939-12-29');
 
+use lab1;
 insert into Bookings Values (1, 6, '2018-01-02', '2018-01-15');
 insert into Bookings Values (2, 1, '2018-01-03', '2018-01-05');
 insert into Bookings Values (4, 3, '2018-01-03', '2018-01-04');
