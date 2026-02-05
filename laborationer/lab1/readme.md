@@ -33,6 +33,7 @@ Which of the variables are suitable as Primary Keys (PK) in the Cars and Custome
 
 How are the tables connected to each other? Create an Entity-Relationship (ER) diagram.
 
+```mermaid
 erDiagram
     CUSTOMERS ||--o{ BOOKINGS : makes
     CARS ||--o{ BOOKINGS : recives
@@ -57,7 +58,7 @@ erDiagram
         date StartDate
         date EndDate
     }
-
+```
 Think about how we can uniquely identify bookings made by customers without adding another column, we will revisit this later.
 - answer: if we create a new table that handels all of the bookings
 
