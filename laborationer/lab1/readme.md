@@ -59,6 +59,7 @@ erDiagram
         date EndDate
     }
 ```
+
 Think about how we can uniquely identify bookings made by customers without adding another column, we will revisit this later.
 - answer: if we create a new table that handels all of the bookings
 

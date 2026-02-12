@@ -134,5 +134,30 @@ BEGIN
     END IF;
 END //
 
+DELIMITER ;
 
-DELIMITER;
+
+use lab2;
+-- Create a function that sums the total amount of days cars have been booked and returns the sum.
+
+select SUM(DATEDIFF(EndDate, StartDate)) INTO booked_days
+from Bookings
+
+
+USE lab2;
+DELIMITER //
+
+CREATE FUNCTION amount_cars_booked()
+RETURNS INT
+DETERMINISTIC
+READS SQL DATA
+BEGIN
+    DECLARE total_days INT;
+
+    SELECT SUM(DATEDIFF(EndDate, StartDate)) INTO total_days
+    FROM Bookings;
+
+    RETURN IFNULL(total_days, 0);
+END//
+
+DELIMITER ;
